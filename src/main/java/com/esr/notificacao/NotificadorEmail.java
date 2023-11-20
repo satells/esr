@@ -3,7 +3,10 @@ package com.esr.notificacao;
 import org.springframework.stereotype.Component;
 
 import com.esr.model.Cliente;
+import com.esr.tipos.tiponotificador.NivelUrgencia;
+import com.esr.tipos.tiponotificador.TipoNotificador;
 
+@TipoNotificador(NivelUrgencia.NORMAL)
 @Component
 public class NotificadorEmail implements Notificador {
 

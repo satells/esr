@@ -5,19 +5,23 @@ import static java.lang.String.format;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.esr.model.Cliente;
 import com.esr.model.Produto;
 import com.esr.notificacao.Notificador;
+import com.esr.tipos.tiponotificador.NivelUrgencia;
+import com.esr.tipos.tiponotificador.TipoNotificador;
 
 @Component
 public class EmissaoNotaFiscalService {
 
+	private final List<Notificador> notificadores;
+
 	@Autowired
-	@Qualifier("notificadoresEmailSms")
-	private List<Notificador> notificadores;
+	public EmissaoNotaFiscalService(@TipoNotificador(NivelUrgencia.URGENTE) final List<Notificador> notificadores) {
+		this.notificadores = notificadores;
+	}
 
 	public void emitir(Cliente cliente, Produto produto) {
 		// TODO emite nota fiscal aqui...

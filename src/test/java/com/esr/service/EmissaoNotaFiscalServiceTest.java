@@ -12,7 +12,7 @@ import com.esr.model.Produto;
 class EmissaoNotaFiscalServiceTest extends BaseTest {
 
 	@Autowired
-	EmissaoNotaFiscalService service = new EmissaoNotaFiscalService();
+	EmissaoNotaFiscalService service;
 
 	@Test
 	void test_emissao_nota_fiscal() {
