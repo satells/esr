@@ -1,8 +1,10 @@
 package com.esr.notificacao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.esr.model.Cliente;
+import com.esr.notificacao.properties.NotificadorProperties;
 import com.esr.tipos.tiponotificador.NivelUrgencia;
 import com.esr.tipos.tiponotificador.TipoNotificador;
 
@@ -10,7 +12,11 @@ import com.esr.tipos.tiponotificador.TipoNotificador;
 @Component
 public class NotificadorEmail implements Notificador {
 
+	@Autowired
+	private NotificadorProperties properties;
+
 	public void notificar(Cliente cliente, String mensagem) {
-		System.out.printf("Notificando %s através do e-mail %s: %s\n", cliente.getNome(), cliente.getEmail(), mensagem);
+		System.out.printf("Notificando %s através do e-mail %s porta: %s - host:%s -  %s\n", cliente.getNome(),
+				cliente.getEmail(), properties.getPortServidor(), properties.getHostServidor(), mensagem);
 	}
 }
