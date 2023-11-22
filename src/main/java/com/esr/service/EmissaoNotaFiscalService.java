@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.esr.model.Cliente;
-import com.esr.model.Produto;
+import com.esr.domain.model.Cliente;
+import com.esr.domain.model.Produto;
 import com.esr.notificacao.Notificador;
 import com.esr.tipos.tiponotificador.NivelUrgencia;
 import com.esr.tipos.tiponotificador.TipoNotificador;

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.esr.BaseTest;
-import com.esr.model.Cliente;
+import com.esr.domain.model.Cliente;
 
 class AtivacaoClienteServiceTest extends BaseTest {
 

@@ -1,4 +1,4 @@
-package com.esr.model;
+package com.esr.domain.model;
 
 import java.math.BigDecimal;
 

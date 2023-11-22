@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.esr.BaseTest;
-import com.esr.model.Cliente;
-import com.esr.model.Produto;
+import com.esr.domain.model.Cliente;
+import com.esr.domain.model.Produto;
 
 class EmissaoNotaFiscalServiceTest extends BaseTest {
 

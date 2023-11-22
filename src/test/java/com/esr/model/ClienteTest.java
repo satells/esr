@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import com.esr.domain.model.Cliente;
+
 class ClienteTest {
 	NullPointerException exception;
 

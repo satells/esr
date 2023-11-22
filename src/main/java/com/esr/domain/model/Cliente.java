@@ -1,4 +1,4 @@
-package com.esr.model;
+package com.esr.domain.model;
 
 import lombok.Getter;
 import lombok.NonNull;

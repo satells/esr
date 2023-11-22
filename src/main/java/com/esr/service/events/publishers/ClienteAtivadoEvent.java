@@ -1,6 +1,6 @@
 package com.esr.service.events.publishers;
 
-import com.esr.model.Cliente;
+import com.esr.domain.model.Cliente;
 
 public class ClienteAtivadoEvent {
 

@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
+import com.esr.domain.model.Produto;
+
 class ProdutoTest {
 
 	NullPointerException exception;

@@ -3,7 +3,7 @@ package com.esr.service.events.listeners;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import com.esr.model.Cliente;
+import com.esr.domain.model.Cliente;
 import com.esr.service.events.publishers.ClienteAtivadoEvent;
 
 @Component
