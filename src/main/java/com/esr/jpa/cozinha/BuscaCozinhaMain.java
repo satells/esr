@@ -1,6 +1,4 @@
-package com.esr.jpa;
-
-import java.util.List;
+package com.esr.jpa.cozinha;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -8,17 +6,17 @@ import org.springframework.context.ApplicationContext;
 
 import com.esr.EsrApplication;
 import com.esr.domain.model.Cozinha;
+import com.esr.domain.repository.CozinhaRepository;
 
-public class ConsultaCozinhaMain {
+public class BuscaCozinhaMain {
 
 	public static void main(String[] args) {
 		ApplicationContext context = new SpringApplicationBuilder(EsrApplication.class).web(WebApplicationType.NONE)
 				.run(args);
 
-		CadastroCozinha cadastroCozinha = context.getBean(CadastroCozinha.class);
-		List<Cozinha> cozinhas = cadastroCozinha.listar();
-
-		cozinhas.forEach(cozinha -> System.out.println(cozinha.toString()));
+		CozinhaRepository cadastroRepository = context.getBean(CozinhaRepository.class);
+		Cozinha cozinha = cadastroRepository.buscar(150L);
+		System.out.println(cozinha.toString());
 
 	}
 

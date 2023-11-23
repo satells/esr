@@ -1,25 +1,23 @@
-package com.esr.jpa;
+package com.esr.jpa.restaurante;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import com.esr.EsrApplication;
-import com.esr.domain.model.Cozinha;
+import com.esr.domain.model.Restaurante;
+import com.esr.domain.repository.RestauranteRepository;
 
-public class InclusaoCozinhaMain {
+public class BuscaRestauranteMain {
 
 	public static void main(String[] args) {
 		ApplicationContext context = new SpringApplicationBuilder(EsrApplication.class).web(WebApplicationType.NONE)
 				.run(args);
 
-		CadastroCozinha cadastroCozinha = context.getBean(CadastroCozinha.class);
+		RestauranteRepository cadastroRepository = context.getBean(RestauranteRepository.class);
+		Restaurante Restaurante = cadastroRepository.buscar(150L);
+		System.out.println(Restaurante.toString());
 
-		Cozinha cozinha = new Cozinha();
-		cozinha.setNome("austríacfdsfo");
-		System.out.println(cozinha);
-
-		Cozinha cozinhaAdicionada = cadastroCozinha.salvar(cozinha);
-		System.out.println(cozinhaAdicionada);
 	}
+
 }

@@ -1,4 +1,4 @@
-package com.esr.jpa;
+package com.esr.infrastructure.repository;
 
 import java.util.List;
 
@@ -9,40 +9,34 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.esr.domain.model.Cozinha;
+import com.esr.domain.repository.CozinhaRepository;
 
 @Component
-public class CadastroCozinha {
+public class CozinhaRepositoryImpl implements CozinhaRepository {
 
 	@PersistenceContext
 	private EntityManager manager;
 
+	@Override
 	public List<Cozinha> listar() {
 		return manager.createQuery("from Cozinha c", Cozinha.class).getResultList();
 	}
 
 	@Transactional
+	@Override
 	public Cozinha salvar(Cozinha cozinha) {
-		/**
-		 * 
-		 * Coloca, incorpora a entidade <Cozinha> dentro do contexto de Persistencia.
-		 * 
-		 */
-
-		// Quando é passado uma instância não há nenhum id atribuido na instância
-		// Cozinha.
-		// Este id é atribuido na instância de retorno do método merge.
 		return manager.merge(cozinha);
 	}
 
-	public Cozinha busca(Long id) {
+	@Override
+	public Cozinha buscar(Long id) {
 		return manager.find(Cozinha.class, id);
-
 	}
 
 	@Transactional
+	@Override
 	public void remover(Cozinha cozinha) {
-		Cozinha busca = this.busca(cozinha.getId());
+		Cozinha busca = this.buscar(cozinha.getId());
 		manager.remove(busca);
-
 	}
 }

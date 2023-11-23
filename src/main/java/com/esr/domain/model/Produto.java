@@ -2,14 +2,14 @@ package com.esr.domain.model;
 
 import java.math.BigDecimal;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @RequiredArgsConstructor
 @ToString
-@Getter
+@Data
 public class Produto {
 
 	@NonNull
