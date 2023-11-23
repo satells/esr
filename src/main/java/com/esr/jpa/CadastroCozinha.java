@@ -21,7 +21,7 @@ public class CadastroCozinha {
 	}
 
 	@Transactional
-	public Cozinha adicionar(Cozinha cozinha) {
+	public Cozinha salvar(Cozinha cozinha) {
 		/**
 		 * 
 		 * Coloca, incorpora a entidade <Cozinha> dentro do contexto de Persistencia.
@@ -34,4 +34,15 @@ public class CadastroCozinha {
 		return manager.merge(cozinha);
 	}
 
+	public Cozinha busca(Long id) {
+		return manager.find(Cozinha.class, id);
+
+	}
+
+	@Transactional
+	public void remover(Cozinha cozinha) {
+		Cozinha busca = this.busca(cozinha.getId());
+		manager.remove(busca);
+
+	}
 }

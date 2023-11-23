@@ -7,19 +7,16 @@ import org.springframework.context.ApplicationContext;
 import com.esr.EsrApplication;
 import com.esr.domain.model.Cozinha;
 
-public class InclusaoCozinhaMain {
+public class BuscaCozinhaMain {
 
 	public static void main(String[] args) {
 		ApplicationContext context = new SpringApplicationBuilder(EsrApplication.class).web(WebApplicationType.NONE)
 				.run(args);
 
 		CadastroCozinha cadastroCozinha = context.getBean(CadastroCozinha.class);
+		Cozinha cozinha = cadastroCozinha.busca(150L);
+		System.out.println(cozinha.toString());
 
-		Cozinha cozinha = new Cozinha();
-		cozinha.setNome("austríacfdsfo");
-		System.out.println(cozinha);
-
-		Cozinha cozinhaAdicionada = cadastroCozinha.salvar(cozinha);
-		System.out.println(cozinhaAdicionada);
 	}
+
 }
