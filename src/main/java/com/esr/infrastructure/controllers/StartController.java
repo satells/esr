@@ -32,7 +32,7 @@ public class StartController {
 		return "iniciado";
 	}
 
-	@GetMapping("/cozinhas")
+	@GetMapping("/cozinhast")
 	public List<Cozinha> listarCozinhas() {
 		return cadastroRepository.listar();
 	}
