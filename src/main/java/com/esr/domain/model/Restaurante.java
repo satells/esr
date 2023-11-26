@@ -32,6 +32,7 @@ public class Restaurante {
 	private BigDecimal taxaFrete;
 
 	@ManyToOne
+//	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name = "cozinha_id") // pode ser incluido ou não
 	private Cozinha cozinha;
 }
