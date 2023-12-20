@@ -1,16 +1,30 @@
-version: '3.1'
-
 services:
-  db:
-    image: mysql
+  mysqldb:
+    image: mysql:5.7.44-oraclelinux7
     restart: always
     ports:
       - 3306:3306
+    networks:
+      - employee-mysql
     environment:
       MYSQL_ROOT_PASSWORD: example
+
+
+  backend: 
+    depends_on: 
+      - mysqldb
+    build: .
+    networks:
+      - employee-mysql
+    ports:
+      - 8080:8080
+
+
 
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8081:8081
+networks:
+  employee-mysql: 
