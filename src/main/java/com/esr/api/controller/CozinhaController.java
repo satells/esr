@@ -47,7 +47,6 @@ public class CozinhaController {
 	@GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<Cozinha>> listar() {
 		List<Cozinha> cozinhas = cozinhaRepository.listar();
-
 		return ResponseEntity.ok(cozinhas);
 	}
 

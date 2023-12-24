@@ -1,12 +1,19 @@
 FROM openjdk:17-alpine
 
+RUN apk add --no-cache bash && \
+    apk add --no-cache htop 
+
 WORKDIR /app
 
-ARG JAR_FILE
+COPY target/*.jar /app/api.jar
+COPY wait-for-it.sh /wait-for-it.sh
 
-COPY target/${JAR_FILE} /app/api.jar
+ARG CACHEBUST=0
+
+RUN chmod +x /wait-for-it.sh
+
 
 EXPOSE 8080
 
 
-CMD [ "java","-Dspring.profiles.active=prod", "-jar", "api.jar" ]
+CMD [ "java", "-XX:MaxRAM=72m","-server", "-Xss512k", "-XX:+UseSerialGC", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap","-Dspring.profiles.active=prod", "-jar", "api.jar"]

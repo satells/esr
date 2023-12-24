@@ -1,54 +1,30 @@
-br-cc59e8923726: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 172.18.0.1  netmask 255.255.0.0  broadcast 172.18.255.255
-        inet6 fe80::42:e3ff:feb8:c89b  prefixlen 64  scopeid 0x20<link>
-        ether 02:42:e3:b8:c8:9b  txqueuelen 0  (Ethernet)
-        RX packets 5097  bytes 765151 (765.1 KB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 5190  bytes 805961 (805.9 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+services:
+  mysqldb:
+    image: mysql:5.7.44-oraclelinux7
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - employee-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
 
-docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
-        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
-        inet6 fe80::42:beff:fe8e:d68a  prefixlen 64  scopeid 0x20<link>
-        ether 02:42:be:8e:d6:8a  txqueuelen 0  (Ethernet)
-        RX packets 32838  bytes 3311649 (3.3 MB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 101831  bytes 335078696 (335.0 MB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
-enp0s3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet 192.168.0.7  netmask 255.255.255.0  broadcast 192.168.0.255
-        inet6 2804:14c:17c:8801::1f64  prefixlen 128  scopeid 0x0<global>
-        inet6 2804:14c:17c:8801:a00:27ff:fee4:4f4a  prefixlen 64  scopeid 0x0<global>
-        inet6 fe80::a00:27ff:fee4:4f4a  prefixlen 64  scopeid 0x20<link>
-        ether 08:00:27:e4:4f:4a  txqueuelen 1000  (Ethernet)
-        RX packets 1214788  bytes 1675095203 (1.6 GB)
-        RX errors 0  dropped 7  overruns 0  frame 0
-        TX packets 216235  bytes 62160665 (62.1 MB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+  backend: 
+    depends_on: 
+      - mysqldb
+    build: .
+    networks:
+      - employee-mysql
+    ports:
+      - 8080:8080
 
-lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
-        inet 127.0.0.1  netmask 255.0.0.0
-        inet6 ::1  prefixlen 128  scopeid 0x10<host>
-        loop  txqueuelen 1000  (Local Loopback)
-        RX packets 620  bytes 74510 (74.5 KB)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 620  bytes 74510 (74.5 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
-veth32ce6b9: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet6 fe80::a835:f0ff:fe3e:277b  prefixlen 64  scopeid 0x20<link>
-        ether aa:35:f0:3e:27:7b  txqueuelen 0  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 19  bytes 1410 (1.4 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
-vethf0ffddd: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
-        inet6 fe80::50eb:99ff:fede:9e8  prefixlen 64  scopeid 0x20<link>
-        ether 52:eb:99:de:09:e8  txqueuelen 0  (Ethernet)
-        RX packets 0  bytes 0 (0.0 B)
-        RX errors 0  dropped 0  overruns 0  frame 0
-        TX packets 16  bytes 1160 (1.1 KB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8081
+networks:
+  employee-mysql: 

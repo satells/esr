@@ -1,30 +1,44 @@
-services:
-  mysqldb:
-    image: mysql:5.7.44-oraclelinux7
-    restart: always
-    ports:
-      - 3306:3306
-    networks:
-      - employee-mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: example
+version: "3.9"
 
-
-  backend: 
-    depends_on: 
-      - mysqldb
-    build: .
-    networks:
-      - employee-mysql
-    ports:
-      - 8080:8080
-
-
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8081:8081
 networks:
-  employee-mysql: 
+  network-esr:
+    name: network-esr
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment: 
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports: 
+      - "3306:3306"
+    networks:
+      - network-esr
+    
+  api-esr:
+    build: .
+    command: [ "/wait-for-it.sh", "-t", "60", "mysql:3306", "--", "java", "-XX:MaxRAM=72m","-server", "-Xss512k", "-XX:+UseSerialGC","-Dspring.profiles.active=prod", "-jar", "api.jar" ]
+    environment:
+      DB_HOST: mysql
+    networks:
+      - network-esr
+    mem_limit: 128m
+    mem_reservation: 50M
+    cpus: 0.5
+    depends_on:
+      - mysql
+
+      
+  esr-proxy:
+    build: ./nginx
+    image: esr-proxy
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
+
+    ports:
+      - "80:80"
+    networks:
+    - network-esr
+    depends_on:
+      - api-esr

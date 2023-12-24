@@ -1,0 +1,8 @@
+services:
+### MySQL Container
+  mysql:
+    build: .
+    environment:        
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
