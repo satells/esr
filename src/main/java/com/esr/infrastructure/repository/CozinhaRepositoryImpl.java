@@ -31,18 +31,21 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 
 	@Override
 	public Cozinha buscar(Long id) {
-		return manager.find(Cozinha.class, id);
+		Cozinha cozinha = manager.find(Cozinha.class, id);
+		System.out.println("cozinha: " + cozinha);
+		return cozinha;
 	}
 
 	@Transactional
 	@Override
 	public void remover(Long id) {
+		System.out.println("id: " + id);
 		Cozinha cozinha = this.buscar(id);
 
 		if (cozinha == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
 
-		manager.remove(id);
+		manager.remove(cozinha);
 	}
 }

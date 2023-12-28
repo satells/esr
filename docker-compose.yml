@@ -17,7 +17,7 @@ services:
     
   api-esr:
     build: .
-    command: [ "/wait-for-it.sh", "-t", "60", "mysql:3306", "--", "java", "-XX:MaxRAM=72m","-server", "-Xss512k", "-XX:+UseSerialGC","-Dspring.profiles.active=prod", "-jar", "api.jar" ]
+    command: [ "/wait-for-it.sh", "-t", "60", "mysql:3306", "--", "java", "-XX:MaxRAM=72m","-server", "-Xss512k", "-XX:+UseSerialGC","-Dspring.profiles.active=prod", "-jar", "/app/api.jar" ]
     environment:
       DB_HOST: mysql
     networks:

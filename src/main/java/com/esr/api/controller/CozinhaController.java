@@ -21,7 +21,6 @@ import com.esr.api.model.CozinhasXmlRepresentationModel;
 import com.esr.domain.exception.EntidadeEmUsoException;
 import com.esr.domain.exception.EntidadeNaoEcontrataException;
 import com.esr.domain.model.Cozinha;
-import com.esr.domain.repository.CozinhaRepository;
 import com.esr.domain.service.CadastroCozinhaService;
 
 @RestController
@@ -30,29 +29,26 @@ import com.esr.domain.service.CadastroCozinhaService;
 public class CozinhaController {
 
 	@Autowired
-	private CozinhaRepository cozinhaRepository;
-
-	@Autowired
-	private CadastroCozinhaService cadastroCozinha;
+	private CadastroCozinhaService cadastroCozinhaService;
 
 	@PostMapping
 	public ResponseEntity<Cozinha> salvar(@RequestBody Cozinha cozinha) {
 
 		System.out.println(cozinha);
-		Cozinha cozinhaSalva = cadastroCozinha.salvar(cozinha);
+		Cozinha cozinhaSalva = cadastroCozinhaService.salvar(cozinha);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaSalva);
 	}
 
 	@GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<List<Cozinha>> listar() {
-		List<Cozinha> cozinhas = cozinhaRepository.listar();
+		List<Cozinha> cozinhas = cadastroCozinhaService.listar();
 		return ResponseEntity.ok(cozinhas);
 	}
 
 	@GetMapping(produces = { MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<CozinhasXmlRepresentationModel> listarxml() {
-		CozinhasXmlRepresentationModel cozinhas = new CozinhasXmlRepresentationModel(cozinhaRepository.listar());
+		CozinhasXmlRepresentationModel cozinhas = new CozinhasXmlRepresentationModel(cadastroCozinhaService.listar());
 
 		return ResponseEntity.ok(cozinhas);
 	}
@@ -60,7 +56,7 @@ public class CozinhaController {
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Cozinha> getCozinha(@PathVariable Long id) {
-		Cozinha cozinha = cozinhaRepository.buscar(id);
+		Cozinha cozinha = cadastroCozinhaService.getCozinha(id);
 
 		if (cozinha == null) {
 			return ResponseEntity.notFound().build();
@@ -74,7 +70,7 @@ public class CozinhaController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Cozinha> atualizar(@RequestBody Cozinha cozinha, @PathVariable Long id) {
-		Cozinha cozinhaAtual = cozinhaRepository.buscar(id);
+		Cozinha cozinhaAtual = cadastroCozinhaService.buscar(id);
 
 		if (cozinhaAtual == null) {
 			return ResponseEntity.notFound().build();
@@ -82,7 +78,7 @@ public class CozinhaController {
 
 		BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
 
-		cozinhaAtual = cozinhaRepository.salvar(cozinhaAtual);
+		cozinhaAtual = cadastroCozinhaService.salvar(cozinhaAtual);
 
 		return ResponseEntity.ok(cozinhaAtual);
 	}
@@ -90,8 +86,8 @@ public class CozinhaController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Cozinha> remover(@PathVariable Long id) {
 		try {
-			cozinhaRepository.remover(id);
-			return ResponseEntity.notFound().build();
+			cadastroCozinhaService.excluir(id);
+			return ResponseEntity.noContent().build();
 		} catch (EntidadeNaoEcontrataException e) {
 			return ResponseEntity.notFound().build();
 		} catch (EntidadeEmUsoException e) {

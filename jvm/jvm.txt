@@ -1,0 +1,7 @@
+-XX:+PrintCompilation 
+-XX:+UnlockDiagnosticVMOptions 
+-XX:+LogCompilation
+-XX:-TieredCompilation
+-XX:+PrintFlagsFinal
+
+-XX:CICompilerCount=4 -XX:CompileThreshold=100

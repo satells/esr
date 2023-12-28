@@ -22,3 +22,15 @@ docker run --rm -d -p 8080:8080 -e DB_HOST=mysql --network esr-network esr:v1
 
 mvnw -DskipTests -Pdocker package
 mvnw -DskipTests package
+
+
+
+
+docker system prune -a
+
+docker rmi $(docker images -a -q)
+docker rm $(docker ps -a -f status=exited -q)
+
+docker-compose up --scale api_esr=2
+
+docker-compose build or docker-compose up --build
