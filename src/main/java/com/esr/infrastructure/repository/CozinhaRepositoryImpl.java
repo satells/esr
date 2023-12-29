@@ -32,14 +32,12 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 	@Override
 	public Cozinha buscar(Long id) {
 		Cozinha cozinha = manager.find(Cozinha.class, id);
-		System.out.println("cozinha: " + cozinha);
 		return cozinha;
 	}
 
 	@Transactional
 	@Override
 	public void remover(Long id) {
-		System.out.println("id: " + id);
 		Cozinha cozinha = this.buscar(id);
 
 		if (cozinha == null) {

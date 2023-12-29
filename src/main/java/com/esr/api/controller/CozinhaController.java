@@ -24,8 +24,8 @@ import com.esr.domain.model.Cozinha;
 import com.esr.domain.service.CadastroCozinhaService;
 
 @RestController
-@RequestMapping(value = "/cozinhas") // , produces = { MediaType.APPLICATION_JSON_VALUE,
-										// MediaType.APPLICATION_XML_VALUE })
+@RequestMapping(value = "/cozinhas") // , produces = {
+										// MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE })
 public class CozinhaController {
 
 	@Autowired
@@ -33,8 +33,6 @@ public class CozinhaController {
 
 	@PostMapping
 	public ResponseEntity<Cozinha> salvar(@RequestBody Cozinha cozinha) {
-
-		System.out.println(cozinha);
 		Cozinha cozinhaSalva = cadastroCozinhaService.salvar(cozinha);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaSalva);
@@ -94,4 +92,5 @@ public class CozinhaController {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
 	}
+
 }

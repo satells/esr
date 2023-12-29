@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * **/
 @Configuration
 class WebMvcConfiguration implements WebMvcConfigurer {
+
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 //		List<HttpMessageConverter<?>> convertersXML = converters.stream()

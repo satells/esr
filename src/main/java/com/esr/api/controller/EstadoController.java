@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esr.domain.model.Estado;
-import com.esr.domain.repository.EstadoRepository;
+import com.esr.domain.service.CadastroEstadoService;
 
 @RestController
 @RequestMapping("/estados")
 public class EstadoController {
 
 	@Autowired
-	private EstadoRepository estadoRepository;
+	CadastroEstadoService cadastroEstadoService;
 
 	@GetMapping
 	public List<Estado> listar() {
-		return estadoRepository.listar();
+		return cadastroEstadoService.listar();
 	}
 
 }
