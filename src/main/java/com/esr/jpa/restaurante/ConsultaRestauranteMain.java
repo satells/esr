@@ -17,7 +17,7 @@ public class ConsultaRestauranteMain {
 				.run(args);
 
 		RestauranteRepository cadastroRepository = context.getBean(RestauranteRepository.class);
-		List<Restaurante> Restaurantes = cadastroRepository.listar();
+		List<Restaurante> Restaurantes = cadastroRepository.findAll();
 
 		Restaurantes.forEach(Restaurante -> System.out.println(Restaurante.toString()));
 

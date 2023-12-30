@@ -5,6 +5,7 @@ import static com.esr.util.Util.NAO_EXISTE_COZINHA;
 import static java.lang.String.format;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,16 +27,16 @@ public class CadastroCozinhaService {
 	 * Método usado tanto para atualizar quanto para inserir um novo
 	 */
 	public Cozinha salvar(Cozinha cozinha) {
-		return cozinhaRepository.salvar(cozinha);
+		return cozinhaRepository.save(cozinha);
 	}
 
 	public List<Cozinha> listar() {
-		return cozinhaRepository.listar();
+		return cozinhaRepository.findAll();
 	}
 
 	public void excluir(Long cozinhaId) {
 		try {
-			cozinhaRepository.remover(cozinhaId);
+			cozinhaRepository.deleteById(cozinhaId);
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEcontrataException(format(NAO_EXISTE_COZINHA, cozinhaId));
 		} catch (DataIntegrityViolationException e) {
@@ -44,11 +45,16 @@ public class CadastroCozinhaService {
 	}
 
 	public Cozinha getCozinha(Long id) {
-		return cozinhaRepository.buscar(id);
+		Optional<Cozinha> optCozinha = cozinhaRepository.findById(id);
+
+		if (optCozinha.isPresent()) {
+			return optCozinha.get();
+		}
+		System.out.println("cozinha nula");
+		return null;
 	}
 
-	public Cozinha buscar(Long id) {
-		return cozinhaRepository.buscar(id);
+	public List<Cozinha> consultaPorNome(String nome) {
+		return cozinhaRepository.consultaPorNome(nome);
 	}
-
 }

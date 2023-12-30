@@ -3,6 +3,7 @@ package com.esr.domain.service;
 import static java.lang.String.format;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,38 +22,39 @@ public class CadastroEstadoService {
 	private EstadoRepository estadoRepository;
 
 	public List<Estado> listar() {
-		return estadoRepository.listar();
+		return estadoRepository.findAll();
 	}
 
 	public Estado buscar(Long id) {
-		Estado estado = estadoRepository.buscar(id);
+		Optional<Estado> optEstado = estadoRepository.findById(id);
 
-		if (estado == null) {
-			throw new EntidadeNaoEcontrataException(String.format("Estado não encontrado com o id %d", id));
+		if (optEstado.isPresent()) {
+			return optEstado.get();
 		}
+		throw new EntidadeNaoEcontrataException(String.format("Estado não encontrado com o id %d", id));
 
-		return estadoRepository.buscar(id);
 	}
 
 	public Estado salvar(Estado estado) {
-		return estadoRepository.salvar(estado);
+		return estadoRepository.save(estado);
 	}
 
 	public Estado alterar(Estado estado) {
-		Estado estadoEncontrado = estadoRepository.buscar(estado.getId());
+		Optional<Estado> optEstado = estadoRepository.findById(estado.getId());
 
-		if (estadoEncontrado == null) {
+		if (!optEstado.isPresent()) {
 			throw new EntidadeNaoEcontrataException(String.format("Estado não encontrado com o id %d", estado.getId()));
 		}
+		Estado estadoEncontrado = optEstado.get();
 
 		BeanUtils.copyProperties(estado, estadoEncontrado, "id");
-		return estadoRepository.salvar(estadoEncontrado);
+		return estadoRepository.save(estadoEncontrado);
 
 	}
 
 	public void excluir(Long id) {
 		try {
-			estadoRepository.remover(id);
+			estadoRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEcontrataException(format("Estado não existe com id %d", id));
 		} catch (DataIntegrityViolationException e) {

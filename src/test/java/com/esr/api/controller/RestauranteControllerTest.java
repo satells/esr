@@ -182,21 +182,22 @@ class RestauranteControllerTest extends BaseTest {
 	void alterar_parcialmente() throws Exception {
 		Restaurante restaurante = new Restaurante();
 
-		restaurante.setId(1L);
-		restaurante.setTaxaFrete(new BigDecimal("99.99"));
-		Cozinha cozinha = new Cozinha();
-//		cozinha.setId(1L);
+		restaurante.setTaxaFrete(new BigDecimal("15.99"));
 
+		Cozinha cozinha = new Cozinha();
+		cozinha.setId(16L);
 		restaurante.setCozinha(cozinha);
 
 		String jsonRestaurante = objectMapper.writeValueAsString(restaurante);
+
+		System.out.println(jsonRestaurante);
 
 		RequestBuilder request = patch("/restaurantes/{id}", 1).contentType(APPLICATION_JSON_VALUE)
 				.accept(APPLICATION_JSON_VALUE).content(jsonRestaurante);
 
 		ResultActions result = mockMvc.perform(request);
 
-		result.andExpectAll(MockMvcResultMatchers.status().isOk());
+		result.andExpectAll(status().isOk());
 
 	}
 

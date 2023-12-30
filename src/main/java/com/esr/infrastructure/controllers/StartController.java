@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.esr.domain.model.Cliente;
 import com.esr.domain.model.Cozinha;
-import com.esr.domain.repository.CozinhaRepository;
+import com.esr.domain.service.CadastroCozinhaService;
 import com.esr.service.AtivacaoClienteService;
 
 @RestController
@@ -18,7 +18,7 @@ public class StartController {
 	AtivacaoClienteService service;
 
 	@Autowired
-	CozinhaRepository cadastroRepository;
+	CadastroCozinhaService cozinhaService;
 
 	@GetMapping
 	public String message() {
@@ -34,6 +34,6 @@ public class StartController {
 
 	@GetMapping("/cozinhast")
 	public List<Cozinha> listarCozinhas() {
-		return cadastroRepository.listar();
+		return cozinhaService.listar();
 	}
 }

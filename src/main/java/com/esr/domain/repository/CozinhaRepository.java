@@ -2,15 +2,16 @@ package com.esr.domain.repository;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
 import com.esr.domain.model.Cozinha;
 
-public interface CozinhaRepository {
-	List<Cozinha> listar();
+@Repository
+public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 
-	Cozinha buscar(Long id);
-
-	Cozinha salvar(Cozinha cozinha);
-
-	void remover(Long id);
-
+	@Query("select c from Cozinha c where nome like CONCAT('%', :nome ,'%')")
+	List<Cozinha> consultaPorNome(@Param("nome") String nome);
 }

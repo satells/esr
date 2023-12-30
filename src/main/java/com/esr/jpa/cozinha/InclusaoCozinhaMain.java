@@ -20,7 +20,7 @@ public class InclusaoCozinhaMain {
 		cozinha.setNome("austríacfdsfo");
 		System.out.println(cozinha);
 
-		Cozinha cozinhaAdicionada = cadastroRepository.salvar(cozinha);
+		Cozinha cozinhaAdicionada = cadastroRepository.save(cozinha);
 		System.out.println(cozinhaAdicionada);
 	}
 }

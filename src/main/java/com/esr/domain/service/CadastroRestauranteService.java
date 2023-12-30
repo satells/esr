@@ -1,6 +1,7 @@
 package com.esr.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,43 +22,51 @@ public class CadastroRestauranteService {
 	CozinhaRepository cozinhaRepository;
 
 	public List<Restaurante> listar() {
-		return restauranteRepository.listar();
+		return restauranteRepository.findAll();
 	}
 
 	public Restaurante buscar(Long id) {
-		return restauranteRepository.buscar(id);
+		Optional<Restaurante> optRestaurante = restauranteRepository.findById(id);
+
+		if (optRestaurante.isPresent()) {
+			return optRestaurante.get();
+		}
+
+		return null;
 	}
 
 	public Restaurante salvar(Restaurante restaurante) {
 		Long idCozinha = restaurante.getCozinha().getId();
 
-		Cozinha cozinha = cozinhaRepository.buscar(idCozinha);
+		Optional<Cozinha> optCozinha = cozinhaRepository.findById(idCozinha);
 
-		if (cozinha == null) {
-			throw new EntidadeNaoEcontrataException(String.format("Não existe cozinha com o id %d", idCozinha));
+		if (optCozinha.isPresent()) {
+			restaurante.setCozinha(optCozinha.get());
+			return restauranteRepository.save(restaurante);
 		}
-		restaurante.setCozinha(cozinha);
 
-		return restauranteRepository.salvar(restaurante);
+		throw new EntidadeNaoEcontrataException(String.format("Não existe cozinha com o id %d", idCozinha));
 
 	}
 
 	public Restaurante alterar(Restaurante restaurante) {
-		Restaurante restauranteBusca = restauranteRepository.buscar(restaurante.getId());
-		if (restauranteBusca == null) {
+		Optional<Restaurante> optRestaurante = restauranteRepository.findById(restaurante.getId());
+
+		if (!optRestaurante.isPresent()) {
 			throw new EntidadeNaoEcontrataException(
 					String.format("Não existe restaurante com o id %d", restaurante.getId()));
 		}
 
-		Cozinha cozinhaBusca = cozinhaRepository.buscar(restaurante.getCozinha().getId());
-		if (cozinhaBusca == null) {
+		Optional<Cozinha> optCozinha = cozinhaRepository.findById(restaurante.getCozinha().getId());
+
+		if (!optCozinha.isPresent()) {
 			throw new EntidadeNaoEcontrataException(
 					String.format("Não existe cozinha com o id %d", restaurante.getCozinha().getId()));
 		}
-
+		Restaurante restauranteBusca = optRestaurante.get();
 		BeanUtils.copyProperties(restaurante, restauranteBusca, "id");
 
-		return restauranteRepository.salvar(restaurante);
+		return restauranteRepository.save(restaurante);
 
 	}
 

@@ -23,7 +23,6 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.esr.BaseTest;
 import com.esr.domain.model.Cozinha;
@@ -117,7 +116,7 @@ public class CozinhaControllerTest extends BaseTest {
 
 		String jsonCozinha = objectMapper.writeValueAsString(cozinha);
 
-		RequestBuilder request = MockMvcRequestBuilders.put("/cozinhas/{id}", cozinha.getId()).accept(APPLICATION_JSON)
+		RequestBuilder request = put("/cozinhas/{id}", cozinha.getId()).accept(APPLICATION_JSON)
 				.contentType(APPLICATION_JSON).content(jsonCozinha);
 
 		ResultActions result = mockMvc.perform(request);
@@ -155,4 +154,13 @@ public class CozinhaControllerTest extends BaseTest {
 		result.andExpectAll(status().is(CONFLICT.value()));
 	}
 
+	@Test
+	public void buscaPorNome() throws Exception {
+		RequestBuilder request = get("/cozinhas/por-nome").param("nome", "cano").accept(APPLICATION_JSON_VALUE);
+
+		ResultActions result = mockMvc.perform(request);
+
+		result.andExpectAll(status().isOk(), jsonPath("$.*", hasSize(greaterThan(1))),
+				content().contentType(APPLICATION_JSON));
+	}
 }

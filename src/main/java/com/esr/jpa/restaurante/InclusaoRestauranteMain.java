@@ -20,7 +20,7 @@ public class InclusaoRestauranteMain {
 		Restaurante.setNome("austríacfdsfo");
 		System.out.println(Restaurante);
 
-		Restaurante RestauranteAdicionada = cadastroRepository.salvar(Restaurante);
+		Restaurante RestauranteAdicionada = cadastroRepository.save(Restaurante);
 		System.out.println(RestauranteAdicionada);
 	}
 }

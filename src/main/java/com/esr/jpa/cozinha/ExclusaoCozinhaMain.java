@@ -25,6 +25,6 @@ public class ExclusaoCozinhaMain {
 		 * se o registro existe ele atualiza se não existir ele insere
 		 */
 
-		cadastroRepository.remover(cozinha.getId());
+		cadastroRepository.deleteById(cozinha.getId());
 	}
 }

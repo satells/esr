@@ -25,7 +25,7 @@ public class AlteracaoCozinhaMain {
 		 * se o registro existe ele atualiza se não existir ele insere
 		 */
 
-		Cozinha alterada = cadastroRepository.salvar(cozinha);
+		Cozinha alterada = cadastroRepository.save(cozinha);
 		System.out.println(alterada);
 	}
 }

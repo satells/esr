@@ -6,37 +6,27 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.esr.domain.model.Cozinha;
-import com.esr.domain.repository.CozinhaRepository;
 
-@Component
-public class CozinhaRepositoryImpl implements CozinhaRepository {
+public class CozinhaRepositoryImpl {
 
 	@PersistenceContext
 	private EntityManager manager;
 
-	@Override
 	public List<Cozinha> listar() {
 		return manager.createQuery("from Cozinha c", Cozinha.class).getResultList();
 	}
 
-	@Transactional
-	@Override
 	public Cozinha salvar(Cozinha cozinha) {
 		return manager.merge(cozinha);
 	}
 
-	@Override
 	public Cozinha buscar(Long id) {
 		Cozinha cozinha = manager.find(Cozinha.class, id);
 		return cozinha;
 	}
 
-	@Transactional
-	@Override
 	public void remover(Long id) {
 		Cozinha cozinha = this.buscar(id);
 
@@ -45,5 +35,10 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 		}
 
 		manager.remove(cozinha);
+	}
+
+	public List<Cozinha> consultaPorNome(String nome) {
+		return manager.createQuery("from Cozinha where nome like CONCAT('%', :nome ,'%')", Cozinha.class)
+				.setParameter("nome", nome).getResultList();
 	}
 }

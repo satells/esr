@@ -25,6 +25,6 @@ public class ExclusaoRestauranteMain {
 		 * se o registro existe ele atualiza se não existir ele insere
 		 */
 
-		cadastroRepository.remover(Restaurante);
+		cadastroRepository.delete(Restaurante);
 	}
 }
