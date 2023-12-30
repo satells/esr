@@ -2,6 +2,7 @@ package com.esr.domain.service;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,4 +41,24 @@ public class CadastroRestauranteService {
 		return restauranteRepository.salvar(restaurante);
 
 	}
+
+	public Restaurante alterar(Restaurante restaurante) {
+		Restaurante restauranteBusca = restauranteRepository.buscar(restaurante.getId());
+		if (restauranteBusca == null) {
+			throw new EntidadeNaoEcontrataException(
+					String.format("Não existe restaurante com o id %d", restaurante.getId()));
+		}
+
+		Cozinha cozinhaBusca = cozinhaRepository.buscar(restaurante.getCozinha().getId());
+		if (cozinhaBusca == null) {
+			throw new EntidadeNaoEcontrataException(
+					String.format("Não existe cozinha com o id %d", restaurante.getCozinha().getId()));
+		}
+
+		BeanUtils.copyProperties(restaurante, restauranteBusca, "id");
+
+		return restauranteRepository.salvar(restaurante);
+
+	}
+
 }

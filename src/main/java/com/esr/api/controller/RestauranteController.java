@@ -1,14 +1,18 @@
 package com.esr.api.controller;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,5 +53,34 @@ public class RestauranteController {
 		} catch (EntidadeNaoEcontrataException e) {
 			return ResponseEntity.badRequest().header("Content-Type", "text/plain;charset=UTF-8").body(e.getMessage());
 		}
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<?> alterar(@RequestBody Restaurante restaurante) {
+		try {
+			Restaurante restauranteAlterado = restauranteService.alterar(restaurante);
+			return ResponseEntity.ok(restauranteAlterado);
+		} catch (EntidadeNaoEcontrataException e) {
+			return ResponseEntity.status(NOT_FOUND).header("Content-Type", "text/plain;charset=UTF-8")
+					.body(e.getMessage());
+		}
+	}
+
+	@PatchMapping("/{id}")
+	public ResponseEntity<?> alterarParcialmente(@PathVariable Long id, @RequestBody Map<String, Object> campos) {
+
+		Restaurante restaurante = restauranteService.buscar(id);
+		if (restaurante == null) {
+			return ResponseEntity.notFound().build();
+		}
+		merge(campos, restaurante);
+		return alterar(restaurante);
+	}
+
+	private void merge(Map<String, Object> campos, Restaurante restaurante) {
+		campos.forEach((campo, valor) -> {
+
+		});
+
 	}
 }

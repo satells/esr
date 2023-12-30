@@ -21,7 +21,6 @@ import java.util.Random;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -29,12 +28,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.esr.BaseTest;
 import com.esr.domain.model.Cozinha;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CozinhaControllerTest extends BaseTest {
-
-	@Autowired
-	ObjectMapper objectMapper;
 
 	@Test
 	public void retorna_lista_de_cozinhas() throws Exception {
@@ -100,7 +95,7 @@ public class CozinhaControllerTest extends BaseTest {
 		Cozinha cozinha = new Cozinha();
 
 		cozinha.setId(150L);
-		cozinha.setNome("Atualizada");
+		cozinha.setNome("Atualiza" + new Random().nextInt());
 
 		String jsonCozinha = objectMapper.writeValueAsString(cozinha);
 
@@ -109,7 +104,7 @@ public class CozinhaControllerTest extends BaseTest {
 
 		ResultActions result = mockMvc.perform(request);
 
-		result.andExpectAll(jsonPath("$.id", is(150)), jsonPath("$.nome", is("Atualizada")), status().isOk(),
+		result.andExpectAll(jsonPath("$.id", is(150)), jsonPath("$.nome", is(cozinha.getNome())), status().isOk(),
 				content().contentType(APPLICATION_JSON));
 
 	}
