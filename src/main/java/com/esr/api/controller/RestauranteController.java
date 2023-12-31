@@ -77,10 +77,6 @@ public class RestauranteController {
 
 		Restaurante restaurante = restauranteService.buscar(id);
 
-		if (restaurante == null) {
-			return ResponseEntity.notFound().build();
-		}
-
 		merge(campos, restaurante);
 
 		return alterar(restaurante);

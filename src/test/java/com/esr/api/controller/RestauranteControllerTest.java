@@ -111,7 +111,7 @@ class RestauranteControllerTest extends BaseTest {
 		Cozinha cozinha = new Cozinha();
 		cozinha.setId(1L);
 
-		restaurante.setId(3L);
+		restaurante.setId(1L);
 		restaurante.setNome("Alterado" + new Random().nextInt());
 		restaurante.setTaxaFrete(new BigDecimal("19.99"));
 		restaurante.setCozinha(cozinha);
@@ -123,7 +123,7 @@ class RestauranteControllerTest extends BaseTest {
 
 		ResultActions result = mockMvc.perform(request);
 
-		result.andExpectAll(status().isOk(), content().contentType(APPLICATION_JSON_VALUE), jsonPath("$.id", is(3))
+		result.andExpectAll(status().isOk(), content().contentType(APPLICATION_JSON_VALUE), jsonPath("$.id", is(1))
 
 				, jsonPath("$.nome", is(restaurante.getNome()))
 
@@ -161,9 +161,9 @@ class RestauranteControllerTest extends BaseTest {
 		Restaurante restaurante = new Restaurante();
 
 		Cozinha cozinha = new Cozinha();
-		cozinha.setId(1L);
+		cozinha.setId(10000L);
 
-		restaurante.setId(7000L);
+		restaurante.setId(1L);
 		restaurante.setNome("Alterado" + new Random().nextInt());
 		restaurante.setTaxaFrete(new BigDecimal("19.99"));
 		restaurante.setCozinha(cozinha);

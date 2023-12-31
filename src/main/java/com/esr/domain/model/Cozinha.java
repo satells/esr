@@ -15,7 +15,6 @@ import lombok.ToString;
 @Data
 @Entity
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @JsonRootName("cozinha")
 public class Cozinha {
 

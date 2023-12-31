@@ -14,4 +14,6 @@ public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
 
 	@Query("select c from Cozinha c where nome like CONCAT('%', :nome ,'%')")
 	List<Cozinha> consultaPorNome(@Param("nome") String nome);
+
+	List<Cozinha> findByNomeContaining(String nome);
 }

@@ -55,6 +55,6 @@ public class CadastroCozinhaService {
 	}
 
 	public List<Cozinha> consultaPorNome(String nome) {
-		return cozinhaRepository.consultaPorNome(nome);
+		return cozinhaRepository.findByNomeContaining(nome);
 	}
 }

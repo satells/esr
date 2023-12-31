@@ -19,7 +19,6 @@ import lombok.ToString;
 @Data
 @Entity
 @ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @DynamicUpdate
 public class Restaurante {
 

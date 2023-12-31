@@ -50,20 +50,14 @@ public class CadastroRestauranteService {
 	}
 
 	public Restaurante alterar(Restaurante restaurante) {
-		Optional<Restaurante> optRestaurante = restauranteRepository.findById(restaurante.getId());
+		Restaurante restauranteBusca = restauranteRepository.findById(restaurante.getId())
+				.orElseThrow(() -> new EntidadeNaoEcontrataException(
+						String.format("Não existe restaurante com o id %d", restaurante.getId())));
 
-		if (!optRestaurante.isPresent()) {
-			throw new EntidadeNaoEcontrataException(
-					String.format("Não existe restaurante com o id %d", restaurante.getId()));
-		}
+		cozinhaRepository.findById(restaurante.getCozinha().getId())
+				.orElseThrow(() -> new EntidadeNaoEcontrataException(
+						String.format("Não existe cozinha com o id %d", restaurante.getCozinha().getId())));
 
-		Optional<Cozinha> optCozinha = cozinhaRepository.findById(restaurante.getCozinha().getId());
-
-		if (!optCozinha.isPresent()) {
-			throw new EntidadeNaoEcontrataException(
-					String.format("Não existe cozinha com o id %d", restaurante.getCozinha().getId()));
-		}
-		Restaurante restauranteBusca = optRestaurante.get();
 		BeanUtils.copyProperties(restaurante, restauranteBusca, "id");
 
 		return restauranteRepository.save(restaurante);
