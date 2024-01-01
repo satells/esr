@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import com.esr.domain.model.Permissao;
 
+@lombok.Generated
 public class PermissaoRepositoryImpl {
 
 	@PersistenceContext

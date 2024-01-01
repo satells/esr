@@ -3,6 +3,7 @@ package com.esr.api.controller;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -18,6 +19,7 @@ import java.util.Random;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.esr.BaseTest;
@@ -201,4 +203,38 @@ class RestauranteControllerTest extends BaseTest {
 
 	}
 
+	@Test
+	public void buscaValorTaxaEntre() throws Exception {
+
+		RequestBuilder request = get("/restaurantes/por-taxa-entre").queryParam("taxaInicial", "1.99")
+				.queryParam("taxaFinal", "10.99").accept(APPLICATION_JSON_VALUE);
+
+		ResultActions result = mockMvc.perform(request);
+
+		result.andExpectAll(status().isOk(), content().contentType(APPLICATION_JSON_VALUE),
+				jsonPath("$.*", hasSize(greaterThan(5))));
+
+	}
+
+	@Test
+	void restaurantesTop2ByNome() throws Exception {
+		RequestBuilder request = get("/restaurantes/restaurantes-primeiros2").queryParam("nome", "Mex")
+				.accept(APPLICATION_JSON_VALUE);
+
+		ResultActions result = mockMvc.perform(request);
+
+		result.andExpectAll(status().isOk(), jsonPath("$.*", hasSize(lessThanOrEqualTo(2))),
+				content().contentType(APPLICATION_JSON_VALUE));
+	}
+
+	@Test
+	void existe() throws Exception {
+		RequestBuilder request = MockMvcRequestBuilders.get("/restaurantes/existe").queryParam("nome",
+				"restauranterusso");
+
+		ResultActions result = mockMvc.perform(request);
+
+		result.andExpectAll(status().isOk(), content().contentType(APPLICATION_JSON_VALUE), content().string("true"));
+
+	}
 }

@@ -7,9 +7,12 @@ import javax.persistence.PersistenceContext;
 
 import com.esr.domain.model.Cidade;
 
+@lombok.Generated
+
 public class CidadeRepositoryImpl {
 
 	@PersistenceContext
+
 	private EntityManager manager;
 
 	public List<Cidade> listar() {

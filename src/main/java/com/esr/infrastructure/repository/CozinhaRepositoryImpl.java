@@ -9,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.esr.domain.model.Cozinha;
 
+@lombok.Generated
 public class CozinhaRepositoryImpl {
 
 	@PersistenceContext

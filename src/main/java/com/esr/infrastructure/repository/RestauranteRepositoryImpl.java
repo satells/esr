@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import com.esr.domain.model.Restaurante;
 
+@lombok.Generated
 public class RestauranteRepositoryImpl {
 
 	@PersistenceContext

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@lombok.Generated
+
 public class HostCheckController {
 
 	@GetMapping("/hostcheck")

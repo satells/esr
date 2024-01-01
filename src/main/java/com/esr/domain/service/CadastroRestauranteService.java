@@ -1,5 +1,6 @@
 package com.esr.domain.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,4 +65,15 @@ public class CadastroRestauranteService {
 
 	}
 
+	public List<Restaurante> getPorTaxaEntre(BigDecimal taxaInicial, BigDecimal taxaFinal) {
+		return restauranteRepository.findByTaxaFreteBetweenOrderByTaxaFreteDesc(taxaInicial, taxaFinal);
+	}
+
+	public List<Restaurante> findRestaurantesTop2ByNome(String nome) {
+		return restauranteRepository.findTop2ByNomeContaining(nome);
+	}
+
+	public boolean existe(String nome) {
+		return restauranteRepository.existsByNome(nome);
+	}
 }

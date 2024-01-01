@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import com.esr.domain.model.FormaPagamento;
 
+@lombok.Generated
 public class FormaPagamentoRepositoryImpl {
 
 	@PersistenceContext

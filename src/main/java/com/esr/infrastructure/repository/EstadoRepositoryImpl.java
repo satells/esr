@@ -9,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import com.esr.domain.model.Estado;
 
+@lombok.Generated
 public class EstadoRepositoryImpl {
 
 	@PersistenceContext

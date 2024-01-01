@@ -8,6 +8,7 @@ import com.esr.EsrApplication;
 import com.esr.domain.model.Cozinha;
 import com.esr.domain.repository.CozinhaRepository;
 
+@lombok.Generated
 public class AlteracaoRestauranteMain {
 
 	public static void main(String[] args) {

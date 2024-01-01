@@ -4,6 +4,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esr.domain.exception.EntidadeNaoEcontrataException;
@@ -95,8 +97,29 @@ public class RestauranteController {
 			Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
 
 			ReflectionUtils.setField(field, restauranteDestino, novoValor);
-
 		});
+	}
+
+	@GetMapping("/por-taxa-entre")
+	public ResponseEntity<List<Restaurante>> porTaxaEntre(@RequestParam BigDecimal taxaInicial,
+			@RequestParam BigDecimal taxaFinal) {
+
+		List<Restaurante> restaurantes = restauranteService.getPorTaxaEntre(taxaInicial, taxaFinal);
+
+		return ResponseEntity.ok(restaurantes);
+	}
+
+	@GetMapping("/restaurantes-primeiros2")
+	public ResponseEntity<List<Restaurante>> restaurantesprimeiros2(@RequestParam String nome) {
+		List<Restaurante> restaurantes = restauranteService.findRestaurantesTop2ByNome(nome);
+
+		return ResponseEntity.ok(restaurantes);
 
 	}
+
+	@GetMapping("/existe")
+	public boolean existe(@RequestParam String nome) {
+		return restauranteService.existe(nome);
+	}
+
 }

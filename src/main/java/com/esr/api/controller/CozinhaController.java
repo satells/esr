@@ -99,4 +99,5 @@ public class CozinhaController {
 		List<Cozinha> cozinhas = cadastroCozinhaService.consultaPorNome(nome);
 		return ResponseEntity.ok(cozinhas);
 	}
+
 }

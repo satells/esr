@@ -163,4 +163,5 @@ public class CozinhaControllerTest extends BaseTest {
 		result.andExpectAll(status().isOk(), jsonPath("$.*", hasSize(greaterThan(1))),
 				content().contentType(APPLICATION_JSON));
 	}
+
 }

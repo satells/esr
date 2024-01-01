@@ -8,6 +8,7 @@ import com.esr.EsrApplication;
 import com.esr.domain.model.Restaurante;
 import com.esr.domain.repository.RestauranteRepository;
 
+@lombok.Generated
 public class InclusaoRestauranteMain {
 
 	public static void main(String[] args) {
