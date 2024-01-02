@@ -230,7 +230,7 @@ class RestauranteControllerTest extends BaseTest {
 	@Test
 	void existe() throws Exception {
 		RequestBuilder request = MockMvcRequestBuilders.get("/restaurantes/existe").queryParam("nome",
-				"restauranterusso");
+				"restaurante russo");
 
 		ResultActions result = mockMvc.perform(request);
 

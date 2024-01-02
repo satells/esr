@@ -3,7 +3,6 @@ package com.esr.api.controller;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -142,16 +141,6 @@ public class CozinhaControllerTest extends BaseTest {
 
 		result.andExpect(status().isNotFound());
 
-	}
-
-	@Test
-	public void delete_cozinha_conflict() throws Exception {
-
-		RequestBuilder request = delete("/cozinhas/{id}", 150);
-
-		ResultActions result = mockMvc.perform(request);
-
-		result.andExpectAll(status().is(CONFLICT.value()));
 	}
 
 	@Test

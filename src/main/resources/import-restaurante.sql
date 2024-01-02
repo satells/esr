@@ -48,7 +48,6 @@ insert into restaurante (nome, taxa_frete, cozinha_id) values ('restaurante cost
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('restaurante croata',51.54,48);
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('restaurante cubano',21.22,49);
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('restaurante dinamarquês, danês ou dano',28.03,50);
-
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('restaurante djibutiano',52.7,51);
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('restaurante egípcio, egipcíaco ou egipciano',55.49,52);
 insert into restaurante (nome, taxa_frete, cozinha_id) values ('restaurante salvadorenho ou salvatoriano',96.34,53);

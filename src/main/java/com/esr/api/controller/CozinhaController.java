@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esr.api.model.CozinhasXmlRepresentationModel;
-import com.esr.domain.exception.EntidadeEmUsoException;
 import com.esr.domain.exception.EntidadeNaoEcontrataException;
 import com.esr.domain.model.Cozinha;
 import com.esr.domain.service.CadastroCozinhaService;
@@ -89,8 +88,6 @@ public class CozinhaController {
 			return ResponseEntity.noContent().build();
 		} catch (EntidadeNaoEcontrataException e) {
 			return ResponseEntity.notFound().build();
-		} catch (EntidadeEmUsoException e) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
 	}
 
